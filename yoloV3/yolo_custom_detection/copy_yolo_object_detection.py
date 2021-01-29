@@ -2,20 +2,19 @@ import cv2
 import numpy as np
 import glob
 import random
-
+import matplotlib.pyplot as plt
 
 # Load Yolo
-net = cv2.dnn.readNet("yolov3_training_lastgun.weights", "yolov3_testing.cfg")
+net = cv2.dnn.readNet(r"C:\Users\Nikhil\Documents\Python_Codes\-nofakes-project\yoloV3\yolo_custom_detection\trained_weights_final.h5", r"C:\Users\Nikhil\Documents\Python_Codes\-nofakes-project\yoloV3\yolo_custom_detection\yolov3_testing.cfg")
 
 # Name custom object
-classes = ["Body"]
+classes = ["Person"]
 
 
 
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
-
 
 
 # loop through all the images
@@ -66,3 +65,12 @@ def get_object(img_path):
             x, y, w, h = boxes[i]
             output.append(np.array(img)[x:x+w,y:y+h,:])
     return output
+
+test_path = r"C:\Users\Nikhil\Documents\Python_Codes\-nofakes-project\yolo_images\vott-csv-export\crop_000010.png"
+
+
+objects = get_object(test_path)
+for i in objects:
+    print(i)
+    plt.imshow(i)
+    plt.show()
