@@ -58,7 +58,6 @@ def get_object(img_path):
 
     indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
     print(indexes)
-    font = cv2.FONT_HERSHEY_PLAIN
     output = []
     for i in range(len(boxes)):
         if i in indexes:
